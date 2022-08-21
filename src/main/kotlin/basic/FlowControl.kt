@@ -1,4 +1,4 @@
-package flow_control
+package basic
 
 fun main() {
     flowControlIfElse()

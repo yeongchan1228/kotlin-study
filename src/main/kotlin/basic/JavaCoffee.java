@@ -1,4 +1,4 @@
-package class_property;
+package basic;
 
 public class JavaCoffee {
 

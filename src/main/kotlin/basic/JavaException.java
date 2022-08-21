@@ -1,4 +1,4 @@
-package exception;
+package basic;
 
 public class JavaException {
     public static void main(String[] args) {

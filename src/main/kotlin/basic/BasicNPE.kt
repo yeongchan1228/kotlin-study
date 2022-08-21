@@ -1,5 +1,7 @@
 package npe
 
+import basic.NullSafety
+
 fun getNullStr(): String? = null
 
 fun getLengthIfNotNull(str: String?):Int = str?.length ?: 0
