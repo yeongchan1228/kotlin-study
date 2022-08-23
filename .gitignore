@@ -1,3 +1,5 @@
-/.idea
-/out
-kotlin-study.iml
+src/.idea
+src/out
+src/main/kotlin/kotlin.iml
+src/main/main.iml
+.idea/
