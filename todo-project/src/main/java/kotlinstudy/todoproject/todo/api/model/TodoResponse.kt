@@ -4,17 +4,18 @@ import kotlinstudy.todoproject.todo.domain.Todo
 import java.time.LocalDateTime
 
 data class TodoResponse(
-    val id: Long?,
+    val id: Long,
     val title: String,
     val description: String,
     val done: Boolean,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val updatedAt: LocalDateTime?,
 ) {
     companion object {
         @JvmStatic
         fun of(todo: Todo?) : TodoResponse {
             checkNotNull(todo) {"Todo is null"}
+            checkNotNull(todo.id) {"Todo id is null"}
 
             return TodoResponse(
                 id = todo.id,
