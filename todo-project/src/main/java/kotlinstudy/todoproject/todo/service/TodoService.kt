@@ -18,7 +18,7 @@ class TodoService(
 ) {
 
     fun findAll(): List<Todo> =
-        todoRepository.findAll(Sort.by(Sort.Direction.DESC))
+        todoRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
 
     fun findById(id: Long) : Todo =
         todoRepository.findByIdOrNull(id)
