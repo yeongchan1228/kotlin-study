@@ -1,3 +1,4 @@
+# Issue 생성
 POST localhost:8080/api/v1/issues
 Content-Type: application/json
 
@@ -8,3 +9,8 @@ Content-Type: application/json
   "priority": "LOW",
   "status": "TODO"
 }
+
+###
+# Issue Status 조회
+GET localhost:8080/api/v1/issues
+Content-Type: application/json
