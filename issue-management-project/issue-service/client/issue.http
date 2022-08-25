@@ -16,12 +16,12 @@ GET localhost:8080/api/v1/issues
 Content-Type: application/json
 
 ###
-# Issue Status 목록 조회
+# Issue 단 건 조회
 GET localhost:8080/api/v1/issues/2
 Content-Type: application/json
 
 ###
-# Issue Status 목록 수정
+# Issue 수정
 PUT localhost:8080/api/v1/issues/1
 Content-Type: application/json
 
@@ -29,3 +29,8 @@ Content-Type: application/json
   "summary": "update",
   "type": "BUG"
 }
+
+###
+# Issue 삭제
+DELETE localhost:8080/api/v1/issues/1
+Content-Type: application/json
