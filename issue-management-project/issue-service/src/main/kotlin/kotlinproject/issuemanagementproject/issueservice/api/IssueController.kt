@@ -39,4 +39,11 @@ class IssueController(
         @PathVariable("issueId") issueId: Long,
         @RequestBody updateRequest: IssueUpdateRequest,
     ) = IssueResponse(issueService.updateIssue(authUser.userId, issueId, updateRequest))
+
+    @DeleteMapping("/{issueId}")
+    fun deleteIssue(
+        @PathVariable("issueId") issueId: Long,
+    ) {
+        issueService.deleteIssue(issueId)
+    }
 }

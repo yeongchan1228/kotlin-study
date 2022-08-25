@@ -45,4 +45,9 @@ class IssueService(
         return issueRepository.save(findIssue)
     }
 
+    @Transactional
+    fun deleteIssue(issueId: Long) {
+        issueRepository.deleteById(issueId)
+    }
+
 }
