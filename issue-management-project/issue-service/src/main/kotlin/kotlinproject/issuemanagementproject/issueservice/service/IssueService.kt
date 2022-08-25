@@ -1,6 +1,7 @@
 package kotlinproject.issuemanagementproject.issueservice.service
 
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.Issue
+import kotlinproject.issuemanagementproject.issueservice.domain.issue.IssueStatus
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.repository.IssueRepository
 import kotlinproject.issuemanagementproject.issueservice.model.IssueRequest
 import org.springframework.stereotype.Service
@@ -25,5 +26,9 @@ class IssueService(
 
         return issueRepository.save(issue)
     }
+
+    fun getIssuesByStatus(status: IssueStatus) : List<Issue>? =
+        issueRepository.findIssueByStatusOrderByCreatedDateDesc(status)
+
 
 }

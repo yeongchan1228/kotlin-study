@@ -47,3 +47,17 @@ data class IssueResponse(
             }
     }
 }
+
+data class IssueListResponse(
+    val size: Int? = 0,
+    val issueResponses: List<IssueResponse>? = null,
+) {
+    companion object {
+        operator fun invoke(issues: List<Issue>?) =
+            IssueListResponse(
+                size = issues?.size,
+                issueResponses = issues?.map { IssueResponse(it) }
+            )
+    }
+}
+
