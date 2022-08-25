@@ -5,6 +5,7 @@ import kotlinproject.issuemanagementproject.issueservice.domain.issue.IssueStatu
 import kotlinproject.issuemanagementproject.issueservice.model.IssueListResponse
 import kotlinproject.issuemanagementproject.issueservice.model.IssueRequest
 import kotlinproject.issuemanagementproject.issueservice.model.IssueResponse
+import kotlinproject.issuemanagementproject.issueservice.model.IssueUpdateRequest
 import kotlinproject.issuemanagementproject.issueservice.service.IssueService
 import org.springframework.web.bind.annotation.*
 
@@ -31,4 +32,11 @@ class IssueController(
     fun getIssueDetail(
         @PathVariable("issueId") issueId: Long,
     ) = IssueResponse(issueService.getIssueByIssueId(issueId))
+
+    @PutMapping("/{issueId}")
+    fun updateIssue(
+        authUser: AuthUser,
+        @PathVariable("issueId") issueId: Long,
+        @RequestBody updateRequest: IssueUpdateRequest,
+    ) = IssueResponse(issueService.updateIssue(authUser.userId, issueId, updateRequest))
 }

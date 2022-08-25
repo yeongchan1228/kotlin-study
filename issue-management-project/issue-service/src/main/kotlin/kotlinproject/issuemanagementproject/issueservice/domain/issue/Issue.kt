@@ -1,6 +1,7 @@
 package kotlinproject.issuemanagementproject.issueservice.domain.issue
 
 import kotlinproject.issuemanagementproject.issueservice.domain.BaseEntity
+import kotlinproject.issuemanagementproject.issueservice.model.IssueUpdateRequest
 import javax.persistence.*
 
 @Entity
@@ -23,4 +24,13 @@ class Issue(
     @Enumerated(EnumType.STRING)
     var status: IssueStatus,
 
-    ) : BaseEntity()
+) : BaseEntity() {
+    fun update(userId: Long, request: IssueUpdateRequest) {
+        this.summary = request.summary ?: this.summary
+        this.description = request.description ?: this.description
+        this.type = request.type ?: this.type
+        this.priority = request.priority ?: this.priority
+        this.status = request.status ?: this.status
+        this.userId = userId
+    }
+}

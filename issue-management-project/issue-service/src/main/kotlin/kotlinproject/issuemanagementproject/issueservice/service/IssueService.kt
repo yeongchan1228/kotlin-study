@@ -5,6 +5,7 @@ import kotlinproject.issuemanagementproject.issueservice.domain.issue.IssueStatu
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.repository.IssueRepository
 import kotlinproject.issuemanagementproject.issueservice.exception.NotFoundException
 import kotlinproject.issuemanagementproject.issueservice.model.IssueRequest
+import kotlinproject.issuemanagementproject.issueservice.model.IssueUpdateRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -34,5 +35,14 @@ class IssueService(
 
     fun getIssueByIssueId(issueId: Long): Issue =
         issueRepository.findByIdOrNull(issueId) ?: throw NotFoundException("해당 이슈를 찾을 수 없습니다.");
+
+    @Transactional
+    fun updateIssue(userId: Long, issueId: Long, updateRequest: IssueUpdateRequest): Issue {
+        val findIssue = getIssueByIssueId(issueId)
+
+        findIssue.update(request = updateRequest, userId = userId)
+
+        return issueRepository.save(findIssue)
+    }
 
 }

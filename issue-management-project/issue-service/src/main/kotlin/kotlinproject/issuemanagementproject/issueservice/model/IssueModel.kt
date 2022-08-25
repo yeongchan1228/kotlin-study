@@ -61,3 +61,11 @@ data class IssueListResponse(
     }
 }
 
+data class IssueUpdateRequest(
+    val summary: String?,
+    val description: String?,
+    val type: IssueType?,
+    val priority: IssuePriority?,
+    val status: IssueStatus?,
+)
+
