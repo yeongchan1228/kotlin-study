@@ -3,7 +3,9 @@ package kotlinproject.issuemanagementproject.issueservice.service
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.Issue
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.IssueStatus
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.repository.IssueRepository
+import kotlinproject.issuemanagementproject.issueservice.exception.NotFoundException
 import kotlinproject.issuemanagementproject.issueservice.model.IssueRequest
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -30,5 +32,7 @@ class IssueService(
     fun getIssuesByStatus(status: IssueStatus) : List<Issue>? =
         issueRepository.findIssueByStatusOrderByCreatedDateDesc(status)
 
+    fun getIssueByIssueId(issueId: Long): Issue =
+        issueRepository.findByIdOrNull(issueId) ?: throw NotFoundException("해당 이슈를 찾을 수 없습니다.");
 
 }

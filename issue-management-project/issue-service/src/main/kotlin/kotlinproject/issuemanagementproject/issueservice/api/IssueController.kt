@@ -26,4 +26,9 @@ class IssueController(
         authUser: AuthUser,
         @RequestParam(value = "status", required = false, defaultValue = "TODO") status: IssueStatus,
     ) = IssueListResponse(issueService.getIssuesByStatus(status))
+
+    @GetMapping("/{issueId}")
+    fun getIssueDetail(
+        @PathVariable("issueId") issueId: Long,
+    ) = IssueResponse(issueService.getIssueByIssueId(issueId))
 }
