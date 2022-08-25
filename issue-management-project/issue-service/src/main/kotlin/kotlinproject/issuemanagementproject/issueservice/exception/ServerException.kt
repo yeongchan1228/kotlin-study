@@ -5,7 +5,7 @@ sealed class ServerException(
     override val message: String,
 ) : RuntimeException(message)
 
-data class NoFoundException(
+data class NotFoundException(
     override val message: String,
 ) : ServerException(404, message)
 
