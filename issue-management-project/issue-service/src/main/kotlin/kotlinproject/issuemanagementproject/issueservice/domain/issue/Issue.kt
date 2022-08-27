@@ -1,12 +1,14 @@
 package kotlinproject.issuemanagementproject.issueservice.domain.issue
 
 import kotlinproject.issuemanagementproject.issueservice.domain.BaseEntity
+import kotlinproject.issuemanagementproject.issueservice.domain.comment.Comment
 import kotlinproject.issuemanagementproject.issueservice.model.IssueUpdateRequest
 import javax.persistence.*
 
 @Entity
 class Issue(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "issue_id")
     val id: Long? = null,
 
     var userId: Long,
@@ -14,6 +16,9 @@ class Issue(
     var summary: String,
 
     var description: String,
+
+    @OneToMany(mappedBy = "issue", fetch = FetchType.EAGER)
+    val comments: MutableList<Comment> = mutableListOf(),
 
     @Enumerated(EnumType.STRING)
     var type: IssueType,
@@ -24,7 +29,7 @@ class Issue(
     @Enumerated(EnumType.STRING)
     var status: IssueStatus,
 
-) : BaseEntity() {
+    ) : BaseEntity() {
     fun update(userId: Long, request: IssueUpdateRequest) {
         this.summary = request.summary ?: this.summary
         this.description = request.description ?: this.description

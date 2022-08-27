@@ -1,6 +1,7 @@
 package kotlinproject.issuemanagementproject.issueservice.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
+import kotlinproject.issuemanagementproject.issueservice.domain.comment.Comment
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.Issue
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.IssuePriority
 import kotlinproject.issuemanagementproject.issueservice.domain.issue.IssueStatus
@@ -23,6 +24,7 @@ data class IssueResponse(
     val userId: Long,
     val priority: IssuePriority,
     val status: IssueStatus,
+    val comments: List<CommentResponse> = emptyList(),
 
     @JsonFormat(pattern = "yyyy-MM-dd:HH:mm:ss")
     val createdDate: LocalDateTime?,
@@ -43,6 +45,8 @@ data class IssueResponse(
                     status = status,
                     createdDate = createdDate,
                     lastModifiedDate = lastModifiedDate,
+
+                    comments = comments.sortedByDescending(Comment::id).map(Comment::toResponse),
                 )
             }
     }
