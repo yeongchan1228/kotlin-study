@@ -6,6 +6,8 @@ plugins{
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+
+    kotlin("kapt") version "1.6.21"
 }
 
 java.sourceCompatibility= JavaVersion.VERSION_17
@@ -21,6 +23,7 @@ allprojects{
 
 subprojects{
     apply(plugin = "kotlin")
+    apply(plugin = "kotlin-kapt")
     apply(plugin = "kotlin-spring")
     apply(plugin = "io.spring.dependency-management")
 
