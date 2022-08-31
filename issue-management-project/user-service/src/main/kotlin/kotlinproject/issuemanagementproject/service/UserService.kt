@@ -3,6 +3,7 @@ package kotlinproject.issuemanagementproject.service
 import kotlinproject.issuemanagementproject.config.JWTProperties
 import kotlinproject.issuemanagementproject.domain.entity.User
 import kotlinproject.issuemanagementproject.domain.repository.UserRepository
+import kotlinproject.issuemanagementproject.exception.InvalidJwtTokenException
 import kotlinproject.issuemanagementproject.exception.PasswordNotMatchedException
 import kotlinproject.issuemanagementproject.exception.UserExistsException
 import kotlinproject.issuemanagementproject.exception.UserNotFoundException
@@ -13,6 +14,8 @@ import kotlinproject.issuemanagementproject.utils.BCryptUtils
 import kotlinproject.issuemanagementproject.utils.CoroutineCacheManager
 import kotlinproject.issuemanagementproject.utils.JwtClaim
 import kotlinproject.issuemanagementproject.utils.JwtUtils
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.springframework.stereotype.Service
 import java.time.Duration
 
@@ -73,5 +76,20 @@ class UserService(
 
     suspend fun logout(token: String) {
         cacheManager.awaitEvict(token)
+    }
+
+    suspend fun getByToken(token: String): User {
+        val cachedUser = cacheManager.awaitGetOrPut(key = token, ttl = CACHE_TTL) {
+            val decodedJWT = JwtUtils.decode(token, jwtProperties.secret, jwtProperties.issuer)
+
+            val userId = decodedJWT.claims["userId"]?.asLong() ?: throw InvalidJwtTokenException()
+            get(userId)
+        }
+
+        return cachedUser
+    }
+
+    suspend fun get(userId: Long): User {
+        return userRepository.findById(userId) ?: throw UserNotFoundException()
     }
 }

@@ -1,5 +1,6 @@
 package kotlinproject.issuemanagementproject.controller
 
+import kotlinproject.issuemanagementproject.model.MeResponse
 import kotlinproject.issuemanagementproject.model.SignInRequest
 import kotlinproject.issuemanagementproject.model.SignInResponse
 import kotlinproject.issuemanagementproject.model.SignUpRequest
@@ -7,6 +8,7 @@ import kotlinproject.issuemanagementproject.model.annotation.AuthToken
 import kotlinproject.issuemanagementproject.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -34,5 +36,11 @@ class UserController(
     suspend fun logout(@AuthToken token: String) {
         userService.logout(token)
     }
+
+    @GetMapping("/me")
+    suspend fun get(
+        @AuthToken token: String,
+    ) : MeResponse =
+        MeResponse(userService.getByToken(token))
 
 }
